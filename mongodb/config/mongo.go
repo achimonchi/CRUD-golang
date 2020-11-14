@@ -8,14 +8,23 @@ import (
 )
 
 func GetMongoDB() (*mgo.Database, error) {
-	hostname := getEnv("MONGO_DB_HOST", "belajarmongodb.4epud.mongodb.net")
-	username := getEnv("MONGO_DB_USER", "reyhan_go")
-	password := getEnv("MONGO_DB_PASS", "reyhan_go")
-	dbname := getEnv("MONGO_DB_NAME", "belajar_go")
+	hostname := getEnv("MONGO_DB_HOST", "localhost:27017")
+	dbname := getEnv("MONGO_DB_NAME", "belajar_golang")
+	// username := getEnv("MONGO_DB_USER", "reyhan_go")
+	// password := getEnv("MONGO_DB_PASS", "reyhan_go")
 
-	// mongodb atlas
-	CONNECTION_URI := "mongodb+srv://" + username + ":" + password + "@" + hostname + "/" + dbname + "?retryWrites=true&w=majority"
+	CONNECTION_URI := "mongodb://" + hostname + "/" + dbname
 	fmt.Println(CONNECTION_URI)
+
+	// info := &mgo.DialInfo{
+	// 	Addrs:    []string{hostname},
+	// 	Timeout:  10 * time.Second,
+	// 	Database: dbname,
+	// 	Username: username,
+	// 	Password: password,
+	// }
+
+	// mongodb+srv://<username>:<password>@belajarmongodb.4epud.mongodb.net/<dbname>?retryWrites=true&w=majority
 
 	session, err := mgo.Dial(CONNECTION_URI)
 
@@ -33,8 +42,6 @@ func getEnv(key string, fallback string) string {
 	if !exist {
 		value = fallback
 	}
-
-	fmt.Println(value)
 
 	return value
 }
