@@ -24,8 +24,6 @@ func GetMongoDB() (*mgo.Database, error) {
 	// 	Password: password,
 	// }
 
-	// mongodb+srv://<username>:<password>@belajarmongodb.4epud.mongodb.net/<dbname>?retryWrites=true&w=majority
-
 	session, err := mgo.Dial(CONNECTION_URI)
 
 	if err != nil {
